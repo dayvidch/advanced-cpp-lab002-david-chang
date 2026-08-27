@@ -89,8 +89,9 @@ int sum_of_digits(int n) {
 
     int sum = 0;
 
-    for(int x = 0; x <= n; x++){
-        sum += x;
+    while(n > 0){
+        sum += n % 10;
+        n /= 10;
     }
 
     return sum;
@@ -103,7 +104,7 @@ std::string reverse_string(const std::string& text) {
 
     std::string reversed = "";
 
-    for(int x = length; x > -1; x--){
+    for(int x = length-1; x > -1; x--){
         reversed += text[x];
     }
 
@@ -119,24 +120,30 @@ int count_vowels(const std::string& text) {
     char vowels[] = {'a', 'e', 'i', 'o','u'};
 
     for(int x = 0; x < text.size(); x++){
-        // if(vowels[x] in vowels){
-        //     count += 1;
-        // }
+        for(int y = 0; y < 5; y++){
+            if(text[x] == vowels[y]){
+                count++;
+            }        
+        }
     }
 
-    return 1;
+    return count;
 }
 
 // Exercise 10: determine whether a number is prime
 bool is_prime(int n) {
     // Add code
 
-    // if((n % 2) == 0){
-    //     return false;
-    // }
-    // else{
-    //     return true;
-    // }
+    if(n < 2){
+        return false;
+    }
+
+    for(int x = 2; x < n; x++){
+        if((n % x) == 0){
+            return false;
+        }
+    }
+    return true;
 }
 
 // Exercise 11: power function
@@ -158,13 +165,19 @@ int power(int base, int exponent) {
 int fibonacci(int n) {
     // TODO: Add code to compute the nth Fibonacci number.
 
-    int fibSum = 0;
+    if(n == 0)
+        return 0;
+    if(n == 1)
+        return 1;
 
-    int x = 1;
-    while(x <= n){
-        fibSum += x;
-        x++;
-    }
+   int x = 0;
+   int y = 1;
+   
+   for(int i = 0; i < n-1; i++){
+        int temp = y;
+        y += x;
+        x = temp;
+   }
 
-    return fibSum;
+    return y;
 }
